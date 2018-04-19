@@ -1,0 +1,337 @@
+<!--     //state: 10:待审批    20：待派车到司机接单  21：所内派车 22-28:所外派车 29：所外抢单 23：所外指派  
+    //        30：待确认(未确认车型和司机)  31:待确认（已确认车型和司机）   40：待评价待结算   41：已评价未结算 42:已结算未评价  50：已完成 0：已取消  51：审批被拒绝  -->
+<loading hidden="{{loadingHidden}}">
+        加载中...
+</loading>
+<view wx:if="{{loadingHidden}}">
+<view class="stateInfo">
+                      <view wx:if="{{item.state==8}}"> 待型号助理审批 </view>
+                      <view wx:elif="{{item.state==10||item.state==9}}"> 待审批 </view>
+                      <view wx:elif="{{item.state>=20&&item.state<40}}"> 待派车 </view>
+                      <view wx:elif="{{item.state==40}}"> 待确认 </view>
+                      <view wx:elif="{{(item.state==41&&!role)}}"> 待结算 </view>
+                      <view wx:elif="{{(item.state==44&&!role)}}"> 待调度审核 </view>
+                      <view wx:elif="{{(item.state==43&&!role)}}"> <view>结算审核未通过</view> <view>理由:{{item.approvelog[0].remark}}</view></view>
+                      <view wx:elif="{{(item.state==0||item.state==1)}}"> 已取消 </view>
+                      <view wx:elif="{{(item.state>50)}}"> <view>审批未通过</view> <view>理由:{{item.disapp_remark}}</view></view>
+                      <view wx:else> 已完成 </view>
+</view>
+
+
+<view class="section section_top" >
+  <view class="name">
+     订单编号
+  </view>
+  <view class="content">
+    {{item.order_numb}}
+  </view>
+</view>
+
+<view class="section " wx:if="{{item.state==1}}">
+  <view class="name">
+     取消时间
+  </view>
+  <view class="content">
+    {{item.updated_at}}
+  </view>
+</view>
+
+
+
+
+ <view class="section " wx:if="{{item.app_leader}}">
+  <view class="name">
+     审批人
+  </view>
+  <view class="content">
+    {{item.app_leader}}
+  </view>
+</view>
+
+
+<view class="section ">
+  <view class="name">
+     申请人
+  </view>
+  <view class="content">
+    {{item.name}}
+  </view>
+</view>
+
+ <view class="section ">
+  <view class="name">
+     申请用车时间
+  </view>
+  <view class="content">
+    {{item.usetime}}
+  </view>
+</view>
+
+
+
+
+<!-- 出发地 -->
+<view class="section departure">
+  <view class="name">
+    出发地
+  </view>
+  <view class="content navigator">
+            <span></span>
+            <view class="journey" bindlongpress="checkInfo" id="ori">
+              <view wx:if="{{item.origin.length==1}}">{{item.origin[0]}}</view>
+              <view wx:else>{{item.origin[0]}}...</view>
+            </view>
+  </view>
+</view>
+<!-- 出发地 -->
+
+
+<!-- 目的地 -->
+<view class="section departure">
+  <view class="name">
+    目的地
+  </view>
+  <view class="content navigator">
+            <span></span>
+            <view class="journey" bindlongpress="checkInfo" id="dest">
+              <view wx:if="{{item.destination.length==1}}">{{item.destination[0]}}</view>
+              <view wx:else>{{item.destination[0]}}...</view>
+            </view>
+  </view>
+</view>
+<!-- 目的地 -->
+
+
+
+<view class="section" wx:if="{{item.driverName}}" >
+  <view class="name">
+     司机
+  </view>
+  <view class="content" >
+    {{item.driverName}}
+  </view>
+</view>
+<view class="section" wx:if="{{item.driverMobilephone}}">
+  <view class="name">
+     联系方式
+  </view>
+  <view class="content" bindtap="calling" data-type="2">
+    {{item.driverMobilephone}}
+  </view>
+</view>
+<view class="section" wx:if="{{item.carName}}">
+  <view class="name">
+     车型
+  </view>
+  <view class="content">
+    {{item.carName}}
+  </view>
+</view>
+<view class="section" wx:if="{{item.carLicense}}">
+  <view class="name">
+     车牌号
+  </view>
+  <view class="content">
+    {{item.carLicense}}
+  </view>
+</view>
+<view class="section">
+  <view class="name">
+     用车原因
+  </view>
+  <view class="content" bindlongpress="checkInfo" id="reason">
+    {{reasonInTable}}
+  </view>
+</view>
+<view class="section">
+  <view class="name">
+     用车类型
+  </view>
+  <view class="content" >
+    {{array_yongCheLeiXing[item.type]}}
+  </view>
+</view>
+<view class="section" wx:if="{{item.manager_name}}">
+  <view class="name">
+     型号管理员
+  </view>
+  <view class="content">
+    {{item.manager_name}}
+  </view>
+</view>
+
+<view class="section">
+  <view class="name">
+     是否携带产品
+  </view>
+  <view class="content">
+    <view wx:if="{{item.order_istake}}">
+    是
+    </view>
+    <view wx:else> 否 </view>
+  </view>
+</view>
+
+<view class="section">
+  <view class="name">
+     乘车人
+  </view>
+  <view class="content">
+    {{item.passenger}}
+  </view>
+</view>
+<view class="section">
+  <view class="name">
+     乘车人联系方式
+  </view>
+  <view class="content"  bindtap="calling" data-type="1">
+    {{item.mobilephone}}
+  </view>
+</view>
+
+<view class="section">
+  <view class="name">
+     所需车辆类型
+  </view>
+  <view class="content" >
+    <view wx:if="{{item.van_type==null||item.van_type==''}}">客车</view>
+    <view wx:else>{{item.van_type}}</view>
+  </view>
+</view>
+
+<view class="section">
+  <view class="name">
+     乘车领导
+  </view>
+  <view class="content" >
+    <view wx:if="{{item.is_leader==0||item.is_leader==null}}">无</view>
+    <view wx:else>
+                    <span></span>
+                  <view class="journey" bindlongpress="checkInfo" id="lead">
+                      <view wx:if="{{item.leaderinfo.length==1}}">{{item.leaderinfo[0]}}</view>
+                      <view wx:else>{{item.leaderinfo[0]}}...</view>
+                  </view>
+    </view>
+  </view>
+</view>
+
+<view class="section">
+  <view class="name">
+     是否往返
+  </view>
+  <view class="content">
+    <view wx:if="{{item.isreturn}}">
+    是
+    </view>
+    <view wx:else> 否 </view>
+  </view>
+</view>
+<view class="section">
+  <view class="name">
+     是否节假日
+  </view>
+  <view class="content">
+    <view wx:if="{{item.isweekend}}">
+    是
+    </view>
+    <view wx:else> 否 </view>
+  </view>
+</view>
+<view class="section">
+  <view class="name">
+     用工需求
+  </view>
+  <view class="content" wx:if="{{item.workers!=''}}">
+  {{item.workers}}
+  </view>
+  <view class='content' wx:else>
+   无
+  </view>
+</view>
+<view class="section" >
+  <view class="name">
+     备注
+  </view>
+  <view class="content" bindlongpress="checkInfo" id="remark">
+    {{remarkInTable}}
+  </view>
+
+</view>
+      <view wx:if="{{item.uselog!=null&&role==0}}">
+              <view class='settleInfo'> 结算信息 </view>
+              <view wx:if="{{companyName!='所内'}}">
+                  <view class="section" >
+                    <view class="name">
+                       费用说明
+                    </view>
+                    <view class="content">
+                      {{item.uselog.remark}}
+                    </view>
+                  </view> 
+                  <view class="section" >
+                    <view class="name">
+                       总费用
+                    </view>
+                    <view class="content">
+                      ¥:{{item.account}}元
+                    </view>
+                  </view>
+
+                  <view class="section" >
+                    <view class="name">
+                       里程
+                    </view>
+                    <view class="content">
+                      {{item.mileage}}km
+                    </view>
+                  </view>
+
+                  <view class="section" >
+                    <view class="name">
+                       实际开始用车时间
+                    </view>
+                    <view class="content">
+                      {{item.use_time_start}}
+                    </view>
+                  </view>
+
+                  <view class="section" >
+                    <view class="name">
+                       实际结束用车时间
+                    </view>
+                    <view class="content">
+                      {{item.use_time_end}}
+                    </view>
+                  </view>
+              </view>  <!-- wx:if="{{companyName!='所内}}" -->
+              <view wx:if="{{companyName=='所内'}}">
+                    <view class="section" >
+                      <view class="name">
+                         高速费
+                      </view>
+                      <view class="content">
+                         ¥:{{item.gs_fee}}元
+                      </view>
+                    </view>
+
+                    <view class="section" >
+                      <view class="name">
+                         停车费
+                      </view>
+                      <view class="content">
+                        ¥:{{item.pause_fee}}元
+                      </view>
+                    </view>
+
+                    <view class="section" >
+                      <view class="name">
+                         过桥费
+                      </view>
+                      <view class="content">
+                        ¥:{{item.gq_fee}}元
+                      </view>
+                    </view>
+              </view>  <!-- wx:if="{{companyName=='所内'}}" -->
+      </view>  <!-- wx:if uselog!=null -->
+</view>
+

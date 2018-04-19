@@ -1,0 +1,12 @@
+
+
+<checkbox-group bindchange="checkboxChange">
+  <label class="checkbox" wx:for="{{items}}">
+    <checkbox value="{{item.value}}" checked="{{item.checked}}"/>{{item.value}}
+  </label>
+</checkbox-group>
+
+<view class="button">
+    <button bindtap="saveAndBack">保存并返回</button>
+</view>
+

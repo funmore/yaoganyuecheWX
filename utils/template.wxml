@@ -1,0 +1,104 @@
+<template name="Origin2Dest">
+              <view class="iconInfo">
+                  <view class="imgView">
+                      <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/originImg.png"></image>
+                      </view>
+                  <view wx:for="{{item.origin}}" wx:key="*this" class="iconInfo" wx:for-item="itemOrigin">
+                      <view>{{itemOrigin}}</view>
+                      <view>
+                       -> 
+                      </view>
+                      <view wx:for="{{item.destination}}" wx:key="*this"  wx:for-item="itemDest">
+                      <view>{{itemDest}}</view>
+                      <view wx:if="{{index<(item.destination.length-1)}}">
+                      -
+                      </view>
+                  </view>
+                  </view>
+              </view> 
+</template>
+<template name="time">
+              <view class="time">
+                        <view class="imgView">
+                        <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/time.png"></image>
+                      </view>
+                        <view>
+                        {{item.usetime}}
+                        </view>
+              </view>
+</template>
+<template name="locationOrigin">
+              <view class="iconInfo">
+                  <view class="imgView">
+                      <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/originImg.png"></image>
+                      </view>
+                  <view wx:for="{{item.origin}}" wx:key="*this" class="iconInfo" wx:for-item="itemOrigin">
+                      <view>{{itemOrigin}}</view>
+                      <view wx:if="{{index<(item.origin.length-1)}}">
+                      -
+                      </view>
+                  </view>
+              </view> 
+</template>
+<template name="locationDest">
+              <view class="iconInfo">
+                  <view class="imgView">
+                      <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/destImg.png"></image>
+                      </view>
+                  <view wx:for="{{item.destination}}" wx:key="*this" class="iconInfo" wx:for-item="itemDest">
+                      <view>{{itemDest}}</view>
+                      <view wx:if="{{index<(item.destination.length-1)}}">
+                      -
+                      </view>
+                  </view>
+              </view>
+</template>
+<template name="telAndReason">
+            <view class="iconInfo">
+                <view class="imgView">
+                    <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/tel.png"></image>
+                </view>
+                <view>
+                  {{item.passenger}}/{{item.mobilephone}}
+                </view>
+            </view>
+</template>
+<template name="company">
+              <view class="iconInfo" wx:if="{{item.company_name!=null}}">
+                  <view class="imgView">
+                      <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/destImg.png"></image>
+                      </view>
+                      <view>{{item.company_name}}</view>
+                  </view>
+</template>
+
+<template name="car">
+            <view class="iconInfo">
+                <view class="imgView">
+                    <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/tel.png"></image>
+                </view>
+                <view>
+                  {{item.passenger}}/{{item.mobilephone}}
+                </view>
+            </view>
+            <view class="iconInfo">
+                <view class="imgView">
+                    <span class="helper"></span><image class="imgCenter" style="width: 10px; height: 10px; " mode="aspectFit" src="/images/reason.png"></image>
+                </view>
+                <view>
+                  <view wx:if="{{item.van_type==null||item.van_type==''}}">客车</view>
+                  <view wx:else>{{item.van_type}}</view>
+                </view>
+            </view>
+</template>
+
+<template name="refresh">
+          <view wx:if="{{hasRefresh}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
+                <icon type="waiting" style="margin-right: 20rpx" size="20"/><text>刷新中...</text>
+          </view>
+</template>
+
+<template name="placeholder">
+          <view style="height:101%">
+          </view>
+</template>

@@ -1,0 +1,49 @@
+.line{
+    display:flex;
+}
+.line >view{
+	margin-left: 20rpx;
+}
+.name{
+    float: left;
+}
+.content{
+    float:right;
+    margin-right: 20rpx;
+}
+.timePicker{
+	float: right;
+    margin-left: 20rpx;
+}
+
+
+.input{
+	text-align: right;
+	height: 70rpx;
+	width: 220rpx;
+	min-height: 0;
+	white-space:normal;
+	overflow: visible;
+	text-overflow:clip;
+
+}
+.navigator{
+	width: 500rpx;
+	height: 70rpx;
+	display:table;
+}
+
+image{
+	width: 42rpx; 
+	height: 42rpx; 
+}
+
+.journey{
+	  float:right;
+	  height: 70rpx;
+	  vertical-align: middle;
+	  display: flex;
+      flex-direction:row;
+      overflow: hidden;     
+}
+

@@ -1,0 +1,4 @@
+
+.bindSelectAll,.goAdmin{
+  margin-top: 6px;
+ }

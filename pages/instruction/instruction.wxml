@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="contain">
+	<view class="header">遥感约车APP使用要求告知书</view>
+	<scroll-view scroll-y="true" class="scroll">
+		<view class="head">1.遥感约车APP使用范围</view>
+		<view class="body">    遥感约车APP是为了满足二十五所业务用车管理开发的软件，使用范围为二十五所经营和业务工作以及日常运行与应急管理等活动非长途保障用车的申请、审批、调度和运输服务结算管理。</view>
+		<view class="head">2.用车申请信息严禁填写涉密或敏感信息</view>
+		<view class="head">3.用车申请要求</view>
+		<view class="body">    用车申请人负责根据业务用车需求如实填写业务用车申请。确保用车申请符合业务用车使用范围，严禁公车私用。确保用车实际路线同申请用车路线相符。申请人需根据用车实际情况乘车后及时确认用车状态，如遇到用车需求变化及时通知调度或司机，变更或取消用车申请。</view>
+		<view class="head">4.用车审批要求</view>
+		<view class="body">    用车审批人负责审核约车申请的真实性和准确性，确保用车范围符合业务用车使用范围。</view>
+		<view class="head">5.用车申请时间要求</view>
+		<view class="body">    为了利于调度合理安排车辆，保障用车需求，请在周一至周五早8:00至晚18:00在遥感约车APP系统上预约用车，如有突发事件急需用车情况特事特批。</view>
+		<view class="body">    遥感约车APP系统支持申请用车流程/事后补单流程，如遇到特殊情况不能及时在APP系统在线预约用车申请，用车完毕后由申请人可在系统中进行事后补单流程。</view>
+		<view class="head">6.用车监督要求</view>
+		<view class="body">    违反业务用车相关规定的，对负有领导责任的部门主要负责人、分管负责人，以及相关责任人，视情节轻重，分别给予责令作出书面检查、通报批评、组织处理或党纪政纪处分。涉嫌犯罪的，依法移送司法机关处理。</view>
+        <button type="primary" bindtap="Accept">我已认真阅读并同意</button>
+	</scroll-view>
+</view>

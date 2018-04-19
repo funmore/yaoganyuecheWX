@@ -1,0 +1,4 @@
+
+<view class="section">
+    <textarea placeholder="详细填写，严禁出现涉密信息。填写字数控制在20字以上。" value="{{reason}}" bindinput="bindTextAreaInput" auto-height show-confirm-bar/>
+  </view>

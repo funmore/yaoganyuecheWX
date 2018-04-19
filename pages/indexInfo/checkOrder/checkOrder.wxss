@@ -1,0 +1,52 @@
+.stateInfo{
+  text-align: center;
+  font-size: xx-large;
+}
+.time{
+margin-top:10rpx;
+}
+.location{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  margin-top:10rpx;
+  text-align: center;
+}
+
+.section{
+  height: 70rpx;
+  margin-bottom: 2rpx;
+  font-size: medium;
+  line-height:70rpx
+}
+.name{
+    float: left;
+}
+.content{
+    float:right;
+    margin-right: 20rpx;
+}
+
+
+.section_top{
+  margin-top: 50rpx;
+}
+.settleInfo{
+  margin-top:50rpx;
+  font-size: large;
+  text-align:center;
+}
+.navigator{
+  width: 600rpx;
+  height: 70rpx;
+  display:flex;
+  justify-content:flex-end;
+}
+.journey{
+    height: 70rpx;
+    vertical-align: middle;
+    display: flex;
+    flex-direction:row;
+    overflow: hidden;
+    text-align: right;
+}

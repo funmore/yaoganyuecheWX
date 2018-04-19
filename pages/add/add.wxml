@@ -1,0 +1,310 @@
+
+
+
+<!-- 申请人 -->
+<view class="section applyer">
+  <view class="name">
+    申请人
+  </view>
+  <view class="content">
+    {{applyer}}
+  </view>
+</view>
+<!-- 申请人 -->
+
+
+<!-- 申请类型 -->
+<view class="section">
+  <view class="name">
+    流程类型
+  </view>
+  <view class="content">
+    <picker bindchange="bindPickerApplyTypeChange" value="{{index_applyType}}" range="{{array_applyType}}">
+    <view>
+      {{array_applyType[index_applyType]}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 申请类型 -->
+
+<!-- 用车类型 -->
+<view class="section">
+  <view class="name">
+    用车类型
+  </view>
+  <view class="content">
+    <picker bindchange="bindPickerYongcheleixingChange" value="{{index_yongCheLeiXing}}" range="{{array_yongCheLeiXing}}">
+    <view>
+      {{array_yongCheLeiXing[index_yongCheLeiXing]}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 用车类型 -->
+
+<!-- 型号助理 -->
+<view class="section" wx:if="{{index_yongCheLeiXing==1}}">
+  <view class="name">
+    型号调度
+  </view>
+  <view class="content">
+    <picker bindchange="bindPickerManagerChange" value="{{index_manager}}" range="{{array_manager}}" range-key="name">
+    <view>
+      {{array_manager[index_manager].name}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 型号助理 -->
+
+
+
+<!-- 用车原因 -->
+<view class="section" style="border:{{reasonStyle}}">
+  <view class="name">
+    乘车事由
+  </view>
+  <view class="content" >
+<!--     <input placeholder="{{reasonForKeYan}}" class="input" bindblur="reasonInput"/>
+ -->    <navigator url="../orderInfo/reason/reason" class="navigator">
+            <view style="float:right;"  wx:if="{{reason==''}}">
+            <span class="helper"></span><image class="imgCenter" style=" width: 42rpx; height: 42rpx"   mode="aspectFit" src="/images/rightA.png"></image>
+            </view>
+            <view wx:else class="journey" bindlongpress="checkInfo" id="reason">
+              <view >{{reasonInTable}}</view>
+            </view>
+    </navigator>
+  </view>
+</view>
+<!-- 用车原因 -->
+
+<!-- 是否携带产品 -->
+<view class="section destination">
+  <view class="name">
+    是否携带产品
+  </view>
+  <view class="content">
+    <switch  bindchange="switchIsTakeProductChange"/>
+  </view>
+</view>
+<!-- 是否携带产品 -->
+
+<!-- 乘车人 -->
+<view class="section passenger" style="border:{{passengerStyle}}">
+  <view class="name">
+    乘车联系人
+  </view>
+  <view class="content">
+    <input placeholder="乘车人姓名" class="input" bindblur="passengerInput"/>
+  </view>
+</view>
+
+<!-- 乘车人数 -->
+<view class="section passenger" style="border:{{passengerNumStyle}}">
+  <view class="name">
+    乘车人数
+  </view>
+  <view class="content line">
+      <view bindtap="minus"><span class="helper"></span><image class="imgCenter" style="width: 42rpx; height: 42rpx; " mode="aspectFit" src="/images/minus.png"></image></view>
+      <view>{{passengerNum}}</view>
+      <view bindtap="plus"><span class="helper"></span><image class="imgCenter" style="width: 42rpx; height: 42rpx; " mode="aspectFit" src="/images/plus.png"></image></view>
+  </view>
+</view>
+<!-- 乘车人数 -->
+
+<!-- 乘车人手机号 -->
+<view class="section passengerPhone" style="border:{{passengerTelStyle}}">
+  <view class="name">
+    乘车联系人联系方式
+  </view>
+  <view class="content">
+    <input type="digit" class="input" bindblur="passengerTelInput" placeholder="请输入手机号"/>
+  </view>
+</view>
+<!-- 乘车人手机号 -->
+
+<!-- 申请用车时间 -->
+<view class="section applyForTime"  style="border:{{timeStyle}}">
+  <view class="name">
+  用车时间
+  </view>
+  <view class="content Picker line">
+            <view class="timePicker" >
+              <picker mode="date" value="{{date}}" start="{{index_applyType==0?dateCurr:''}}" end="{{index_applyType==0?date2after:dateCurr}}" bindchange="bindDateChange">
+                <view class="picker">
+                   {{date}}
+                </view>
+              </picker>
+            </view>  <!--datePicker end-->
+
+            <view class="timePicker">
+              <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+                <view class="picker">
+                   {{time}}
+                </view>
+              </picker>
+            </view>  <!--timePicker end-->
+  </view>  <!--Picker end-->
+</view>
+<!-- 申请用车时间 -->
+
+<!-- 出发地 -->
+<view class="section departure" style="border:{{originStyle}}">
+  <view class="name">
+    出发地
+  </view>
+  <view class="content">
+    <navigator url="../orderInfo/origin/origin" class="navigator">
+            <view style="float:right;"  wx:if="{{origin.length==0}}">
+            <span class="helper"></span><image class="imgCenter" style=" width: 42rpx; height: 42rpx"   mode="aspectFit" src="/images/rightA.png"></image>
+            </view>
+            <view wx:else class="journey" bindlongpress="checkInfo" id="ori">
+              <view wx:if="{{origin.length==1}}">{{origin[0]}}</view>
+              <view wx:else>{{origin[0]}}...</view>
+            </view>
+    </navigator>
+  </view>
+</view>
+<!-- 出发地 -->
+
+
+<!-- 目的地 -->
+<view class="section departure" style="border:{{destStyle}}">
+  <view class="name">
+    目的地
+  </view>
+  <view class="content">
+    <navigator url="../orderInfo/destination/destination" class="navigator">
+            <view style="float:right;"   wx:if="{{dest.length==0}}" >
+            <span class="helper"></span><image class="imgCenter" style="width: 42rpx; height: 42rpx" mode="aspectFit" src="/images/rightA.png"></image>
+            </view>
+            <view wx:else class="journey" bindlongpress="checkInfo" id="dest">
+              <view wx:if="{{dest.length==1}}">{{dest[0]}}</view>
+              <view wx:else>{{dest[0]}}...</view>
+            </view>
+    </navigator>
+  </view>
+</view>
+<!-- 目的地 -->
+
+<!-- 车辆类型 -->
+<view class="section">
+  <view class="name">
+    所需车辆类型
+  </view>
+  <view class="content">
+    <picker bindchange="bindCarChange" value="{{index_carType}}" range="{{array_carType}}">
+    <view>
+      {{array_carType[index_carType]}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 车辆类型 -->
+
+
+<!-- 货车 -->
+<view class="section" wx:if="{{index_carType==1}}">
+  <view class="name">
+    所需货车
+  </view>
+  <view class="content">
+    <picker bindchange="bindVanChange" value="{{index_van}}" range="{{array_van}}" >
+    <view>
+      {{array_van[index_van]}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 货车 -->
+
+<!-- 用工详细需求 -->
+<view class="section workerNeeds" wx:if="{{index_carType==1}}">
+  <view class="name">
+    搬运服务需求
+  </view>
+  <view class="content">
+    <input placeholder="例:5名工人,3台设备" class="input" bindblur="bindWorkerNeedsInput"/>
+  </view>
+</view>
+<!-- 用工详细需求 -->
+
+<!-- 是否所领导用车 -->
+<view class="section">
+  <view class="name">
+    是否所领导用车
+  </view>
+  <view class="content">
+    <picker bindchange="bindIsLeaderChange" value="{{index_isleader}}" range="{{array_isleader}}">
+    <view>
+      {{array_isleader[index_isleader]}}
+    </view>
+  </picker>
+  </view>
+</view>
+<!-- 是否所领导用车 -->
+
+<!-- 乘车所领导 -->
+<view class="section departure" wx:if="{{index_isleader==1}}" style="border:{{leadersStyle}}">
+  <view class="name">
+    乘车领导
+  </view>
+  <view class="content">
+    <navigator url="../orderInfo/leaders/leaders" class="navigator">
+            <view style="float:right;"   wx:if="{{leaders.length==0}}" >
+            <span class="helper"></span><image class="imgCenter" style="width: 42rpx; height: 42rpx" mode="aspectFit" src="/images/rightA.png"></image>
+            </view>
+            <view wx:else class="journey" bindlongpress="checkInfo" id="lead">
+              <view wx:if="{{leaders.length==1}}">{{leaders[0]}}</view>
+              <view wx:else>{{leaders[0]}}...</view>
+            </view>
+    </navigator>
+  </view>
+</view>
+<!-- 乘车所领导 -->
+
+<!-- 是否往返 -->
+<view class="section destination">
+  <view class="name">
+    是否往返
+  </view>
+  <view class="content">
+    <switch  bindchange="switchOneOrTwoWayChange"/>
+  </view>
+</view>
+<!-- 是否往返 -->
+
+<!-- 是否节假日 -->
+<view class="section isOffWorkTime">
+  <view class="name">
+    是否节假日
+  </view>
+  <view class="content">
+    <switch  bindchange="switchIsOffWorkTimeChange"/>
+  </view>
+</view>
+<!-- 是否节假日 -->
+
+
+
+
+<!-- 申请用车备注 -->
+<view class="section notes">
+  <view class="name">
+    申请用车备注
+  </view>
+  <view class="content">
+    <input placeholder="备注" class="input" bindblur="notesInput"/>
+  </view>
+</view>
+<!-- 申请用车备注 -->
+
+<form bindsubmit="applyForCar"  report-submit="true">
+  <!-- 此处是表单元素 -->
+  <button formType="submit" type="primary">申请用车</button><!-- 提交按钮 -->
+</form>
+
+
+
+

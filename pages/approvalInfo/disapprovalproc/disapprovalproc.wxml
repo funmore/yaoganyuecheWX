@@ -1,0 +1,26 @@
+<view class="sOrder" wx:for="{{orderToSend}}" wx:key="*this">
+                  <view class="info" data-item="{{item}}" bindtap="checkOrder">
+                      <import src="/utils/template.wxml"/>
+                      <template is="time" data="{{item}}"/>
+                      <template is="locationOrigin" data="{{item}}"/>
+                      <template is="locationDest" data="{{item}}"/>
+                      <template is="telAndReason" data="{{item}}"/>
+                  </view> <!-- info end -->
+          </view>   <!-- sOrder end -->
+
+
+<view class="section" >
+  <view class="name">
+    拒绝理由 
+  </view>
+  <view class="content">
+      <input placeholder="拒绝理由" class="input" bindblur="bindRemarkInput"/>
+  </view>
+</view>
+
+
+
+<form bindsubmit="DisApproval" class="accept" report-submit="true">
+  <!-- 此处是表单元素 -->
+  <button formType="submit" type="primary">提交</button><!-- 提交按钮 -->
+</form>

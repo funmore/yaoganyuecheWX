@@ -1,0 +1,48 @@
+<view class="stv-container">
+
+  <view class="tab-bar" >
+    <view wx:for="{{tabs}}" wx:key="*this" data-index=
+    "{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'tab-active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      <text>{{item}}</text>
+      <text wx:if="{{stateLengthFlag}}">{{stateLength[index]}}</text>
+    </view>
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+  <view class="scroll-view">
+    <loading hidden="{{loadingHidden}}">
+    加载中...
+    </loading>
+    <view  class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+      <view style="width: {{stv.windowWidth}}px;" wx:for="{{tabs}}" wx:key="*this" class="one-scene" wx:for-index="tabIndex">
+         <scroll-view scroll-y="true"  scroll-top="99rpx" class="scroll-view-true" bindscrolltoupper="refresh">
+        <import src="../../utils/template.wxml"/>
+            <template is="refresh" data="{{hasRefresh}}"/>  
+         <view class="sOrder "  wx:for="{{orderArray}}" wx:key="id" wx:if="{{((tabIndex==0)&&(item.state==10||item.state==9||item.state==8))||((tabIndex==1)&&(item.state>=20)&&(item.state<40))||((tabIndex==2)&&(item.state==40))||(tabIndex==3&&(item.state==0||item.state>=41))}}" >
+                  <view class="state" >
+                      <view wx:if="{{item.state<=1}}">
+                        <image style="width: 60px; height: 60px;" mode="aspectFit" src="/images/orderCancel.png"></image>
+                      </view>
+                      <view wx:if="{{item.state>50}}">
+                        <image style="width: 60px; height: 60px;" mode="aspectFit" src="/images/orderAppDis.png"></image>
+                      </view>
+                  </view>
+                  <view class="info" data-item="{{item}}" bindtap="checkOrder">
+                      <template is="time" data="{{item}}"/>
+                      <template is="locationOrigin" data="{{item}}"/>
+                      <template is="locationDest" data="{{item}}"/>
+                      <template is="telAndReason" data="{{item}}"/>
+                  </view> <!-- info end -->
+                  <form bindsubmit="confirmOrder" data-item="{{item}}"  wx:if="{{tabIndex==2}}" report-submit="true">
+                              <button formType="submit"  type="primary" size="mini" class="goAdmin">确认乘车</button>
+                  </form>
+                  <form bindsubmit="cancelOrder" data-item="{{item}}"  wx:if="{{tabIndex<3}}"  report-submit="true">
+                              <button formType="submit" type="warn" size="mini" class="goAdmin"  >取消用车</button>
+                  </form>
+
+          </view>   <!-- sOrder end -->
+          <template is="placeholder" />
+          </scroll-view>
+    </view>  
+  </view>
+</view>
+</view>

@@ -1,0 +1,24 @@
+
+
+
+
+.section >view{
+  line-height: 70rpx;
+}
+.section >picker{
+  line-height: 70rpx;
+}
+.section >input{
+  line-height: 70rpx;
+}
+
+
+.line{
+    display:flex;
+}
+.timePicker{
+    margin-left: 20rpx;
+}
+input{
+  width: 200rpx
+}

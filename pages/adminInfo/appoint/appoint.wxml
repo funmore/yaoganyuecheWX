@@ -1,0 +1,31 @@
+
+
+<view class="sOrder" wx:for="{{orderToSend}}" wx:key="*this">
+                  <view class="info" data-item="{{item}}" >
+                      <import src="/utils/template.wxml"/>
+                      <template is="time" data="{{item}}"/>
+                      <template is="locationOrigin" data="{{item}}"/>
+                      <template is="locationDest" data="{{item}}"/>
+                      <template is="telAndReason" data="{{item}}"/>
+                  </view> <!-- info end -->
+          </view>   <!-- sOrder end -->
+
+
+<view class="section" >
+  <view class="name">
+    选择公司 
+  </view>
+  <view class="content">
+    <picker bindchange="bindPickerCompany" value="{{index_company}}" range="{{array_company}}" range-key="name">
+    <view>
+      {{array_company[index_company].name}}
+    </view>
+  </picker>
+  </view>
+</view>
+
+
+<form bindsubmit="Appoint" bindreset="formReset" report-submit="true">
+  <!-- 此处是表单元素 -->
+  <button formType="submit" type="primary">发送指派</button><!-- 提交按钮 -->
+</form>

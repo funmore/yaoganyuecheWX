@@ -1,0 +1,5 @@
+.section{
+	border-color: #666666; 
+	border:1rpx solid;
+	height:280rpx;
+}

@@ -1,0 +1,69 @@
+
+<view class="stv-container">
+  <view class="tab-bar">
+    <view wx:for="{{tabs}}" wx:key="unique" data-index=
+    "{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'tab-active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      <text>{{item}}</text>
+      <text wx:if="{{stateLengthFlag}}">{{stateLength[index]}}</text>
+    </view>
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+  <view class="scroll-view">
+    <loading hidden="{{loadingHidden}}">
+        加载中...
+        </loading>
+    <view  class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+      <view style="width: {{stv.windowWidth}}px;" wx:for="{{tabs}}" wx:key="*this" class="one-scene" wx:for-index="tabIndex">
+         <scroll-view scroll-y="true"   enable-back-to-top="true" scroll-with-animation="true" scroll-top="0px" class="scroll-view-true" bindscrolltoupper="refresh" style="height:{{tabIndex!=2? scrollHeight:windowHeight}}px">
+          <import src="../../utils/template.wxml"/>
+          <template is="refresh" data="{{hasRefresh}}"/>
+         <view class="sOrder" wx:for="{{orderArray}}" wx:key="*this" 
+
+      wx:if="{{((tabIndex==0)&&(item.state==20))||((tabIndex==1)&&(item.state>20)&&(item.state<39))||((tabIndex==2)&&(item.state>=39)&&(item.state<43))||((tabIndex==3)&&(item.state==44||item.state==43))||((tabIndex==4)&&(item.state>44||item.state==1))}}" 
+         data-item="{{item}}" >
+                  <view class="state" wx:if="{{tabIndex==0||tabIndex==1}}">
+                      <icon wx:if="{{item.selected}}" type="success_circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" class="my-check"/>
+                      <icon wx:else type="circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" class="my-check"/>
+                  </view>
+                  <view class="info" data-item="{{item}}"  bindtap="checkOrder">  
+                               
+                      <import src="../../utils/template.wxml"/>
+                      <template is="time" data="{{item}}"/>
+                      <template is="Origin2Dest" data="{{item}}"/>
+                      <template is="telAndReason" data="{{item}}"/>
+                      <template is="company" data="{{item}}"/>
+                  </view> <!-- info end -->
+                  <form bindsubmit="approval" data-item="{{item}}" data-idx="{{idx}}"  wx:if="{{(tabIndex==3)&&(item.state==44)}}"  report-submit="true">
+                          <button formType="submit"  type="primary" size="mini" class="goAdmin" >审批通过</button>
+                  </form>
+                  <button data-item="{{item}}"  wx:if="{{(tabIndex==3)&&(item.state==44)}}" type="warn" size="mini" class="goAdmin" bindtap="disapproval" >审批拒绝</button>
+                  <button  wx:if="{{item.state==43}}"  size="mini" class="goAdmin competeFail" disabled="{{item.selected}}">待修改</button>
+          </view>   <!-- sOrder end -->
+          <template is="placeholder" />
+          </scroll-view>
+          <view class="sendToAdmin" wx:if="{{(tabIndex==0&&stateLength[0]>0)}}">
+            <view bindtap="bindSelectAll" class="bindSelectAll" >
+                  <icon wx:if="{{selectedAllStatus}}" type="success_circle" size="20" class="l-mycheck"/>
+                  <icon wx:else type="circle" size="20" class="l-mycheck"/>
+                  <view class="sendToAdminText">全选</view>
+            </view>
+          <button type="primary" size="mini"  class="goAdmin" bindtap="goAppoint" >发送指派</button>
+            <button type="primary" size="mini"  class="goAdmin" bindtap="goCompete" >发送抢单</button>
+            <button data-tab-index="{{tabIndex}}"  type="warn" size="mini" class="goAdmin" bindtap="cancelOrder" >取消用车</button>
+          </view>
+          <view class="sendToAdmin" wx:if="{{(tabIndex==1&&stateLength[1]>0)}}" style="height:{{sendtoAdminHeight}}px">
+            <view bindtap="bindSelectAllRetreat" class="bindSelectAll" >
+                  <icon wx:if="{{selectedAllStatusRetreat}}" type="success_circle" size="20" class="l-mycheck"/>
+                  <icon wx:else type="circle" size="20" class="l-mycheck"/>
+                  <view class="sendToAdminText">全选</view>
+            </view>
+            <button type="primary" size="mini"  class="goAdmin" bindtap="goRetreat" >撤回调度</button>
+          </view>
+
+
+
+
+    </view>  
+  </view>
+</view>
+</view>

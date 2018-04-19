@@ -1,0 +1,14 @@
+/**index.wxss**/
+
+
+.logo {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 20rpx;
+/*  border-radius: 50%;
+*/}
+
+
+.usermotto {
+  margin-top: 200px;
+}
